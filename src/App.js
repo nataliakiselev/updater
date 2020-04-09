@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import WeatherToday from './components/WeatherToday';
 import News from './components/News';
-
+import CurrencyConverter from './components/CurrencyConverter';
 function App() {
   return (
     <div className="page">
@@ -15,7 +15,7 @@ function App() {
             <WeatherToday city="london" heading="Weather Today" />
           </Grid>
           <Grid item xs={6}>
-            <h1>Things to do</h1>
+            <CurrencyConverter heading="Currency Converter" />
           </Grid>
           <Grid item xs={12}>
             <News heading="News" />

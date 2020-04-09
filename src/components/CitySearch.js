@@ -2,13 +2,13 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import Input from '@material-ui/core/Input';
 
-const CitySearch = props => {
+const CitySearch = (props) => {
   return (
     <div>
       <form
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
-          const city = Object.fromEntries(new FormData(e.target));
+          const city = e.target.value;
           props.sendDataToParent(city);
         }}
       >
