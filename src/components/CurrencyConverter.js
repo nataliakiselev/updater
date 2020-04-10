@@ -1,6 +1,8 @@
 import React, { useState, useEffect , useCallback} from 'react';
-import {Paper, TextField, MenuItem} from "@material-ui/core";
+import {Paper, TextField, MenuItem, FormControl} from "@material-ui/core";
 import {currencies} from '../currencies.js';
+import {formatTotal} from '../Helpers';
+
 
 const endpoint = "https://api.exchangeratesapi.io/latest";
 
@@ -11,20 +13,16 @@ const fetchRates= async (base='GBP' ) =>{
     return rates;
   }
 
-  const formatTotal=(amount, currency)=> {
-    return Intl.NumberFormat('en-UK', {
-      style: 'currency',
-      currency,
-    }).format(amount);
-  }
+ 
 
 function CurrencyConverter() {
-const ratesByBase= fetchRates();   
+
+
 
 const [fromCurrency, setFromCurrency]= useState('GBP');
 const [toCurrency, setToCurrency] = useState('GBP');
-const [inputAmount, setInputAmount] = useState(0);
-const [convertedAmount, setConvertedAmount] = useState(0);
+const [inputAmount, setInputAmount] = useState(null);
+const [convertedAmount, setConvertedAmount] = useState(null);
 
 const handleFromCurrencyChange = e => {
     setFromCurrency(e.target.value);
@@ -35,12 +33,14 @@ const handleFromCurrencyChange = e => {
   };
   const handleInputAmountChange = e => {
     setInputAmount(e.target.value);
+   
   };
   const handleConvertedAmountChange = e => {
     setConvertedAmount(e.target.value);
   };
+  const ratesByBase={}
 
-  const convertCurrency= async  (amount, from, to)=> {
+  const convertCurrency= useCallback(async  (amount, from, to)=> {
         // check if we already have the rates to convert from that currency
         if (!ratesByBase[from]) {
           const rates = await fetchRates(from);
@@ -53,33 +53,29 @@ const handleFromCurrencyChange = e => {
         const convertedTotal = amount * rate;
         // console.log(`${amount} ${from} is ${convertedTotal} in ${to}`);
         return convertedTotal;
-      }
+      }, [ratesByBase])
 
-//   const  handleInput = async (e)=> {
-//     const total = await convertCurrency(
-//       inputAmount,
-//       fromCurrency,
-//       toCurrency
-//     );
-//     console.log(total);
-//     setConvertedAmount (formatTotal(total, toCurrency));
-//   };
+
   const handleInput = useCallback(
     async (e) => {
         const total = await convertCurrency(
             inputAmount,
             fromCurrency,
-            toCurrency
+            toCurrency,
           );
-          console.log(total);
+          console.log(total, toCurrency);
           setConvertedAmount (formatTotal(total, toCurrency));
-    },
-    [inputAmount, fromCurrency, toCurrency, convertCurrency],
+    }, [inputAmount,
+      fromCurrency,
+      toCurrency, convertCurrency]
+  
   );
+ 
 
   useEffect(() => {
+    if(inputAmount){
     handleInput();
-  } )
+  }}, [handleInput, inputAmount])
 
 
  return(
@@ -88,34 +84,35 @@ const handleFromCurrencyChange = e => {
 
     
     <Paper elevation={1}>
-    <form noValidate autoComplete="off">
+    <FormControl fullWidth  autoComplete="off" >
     
-    <TextField type="number" value={inputAmount} onChange={handleInputAmountChange} variant='outlined' required placeholder="Please enter amount" fullWidth  /> 
-      <TextField  select fullWidth 
+    <TextField type="number" value={inputAmount}  onChange={handleInputAmountChange}  variant='outlined'  /> 
+      <TextField  select 
        value={fromCurrency}
         onChange={handleFromCurrencyChange}
-        helperText="Please select your currency"
-      >
-        {Object.entries(currencies).map(([currencyCode, currencyName]) => (
-          <MenuItem key={currencyCode} value={currencyCode}>
-            {currencyCode} - {currencyName}
-          </MenuItem>
-        ))}
+        
+      > 
+    {Object.entries(currencies).map(([currencyCode, currencyName]) => (
+    <MenuItem key={currencyCode} value={currencyCode}>
+      {currencyCode} - {currencyName}
+    </MenuItem>
+    ))}
+        
       </TextField>
-      <TextField  select fullwidth 
+      <TextField  select 
        value={toCurrency}
         onChange={handleToCurrencyChange}
-        helperText="Please select your currency"
+        placeholder="Select your currency"
       >
-        {Object.entries(currencies).map(([currencyCode, currencyName]) => (
-          <MenuItem key={currencyCode} value={currencyCode}>
-            {currencyCode} - {currencyName}
-          </MenuItem>
-        ))}
+        { Object.entries(currencies).map(([currencyCode, currencyName]) => (
+    <MenuItem key={currencyCode} value={currencyCode}>
+      {currencyCode} - {currencyName}
+    </MenuItem>
+    ))}
       </TextField>
-      <TextField type="number" value={convertedAmount} onChange={handleConvertedAmountChange} variant='outlined' required fullWidth inputProps={{ 'aria-label': 'amount' }} /> 
+      <TextField type='number' readOnly value={convertedAmount} onChange={handleConvertedAmountChange} variant='outlined' /> 
       
-      </form>
+      </FormControl>
       </Paper>
     
   
