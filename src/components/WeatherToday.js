@@ -1,6 +1,7 @@
 import React from 'react';
 import CitySearch from './CitySearch';
 import WeatherDisplay from './WeatherDisplay';
+import { AppBar, Paper} from "@material-ui/core";
 // import ErrorSnackbar from './ErrorSnackbar';
 
 const hour = 60 * 60 * 1000;
@@ -99,22 +100,29 @@ class WeatherToday extends React.Component {
     }
 
     const styles = {
+      paper:{
       background: `url(${backgroundImage}) center/cover`,
       padding: '15px',
+    },
+
     };
 
     // console.log('HJKHJKHJKHJKHK styles', styles);
     // console.log('this.state.data', this.state.data);
 
     return (
-      <div id="thing" style={styles}>
+   
+      
+     
+      <Paper className='css' style={styles.paper} elevation={2}>
+        
         <h1>{this.props.heading}</h1>
-
         <CitySearch sendDataToParent={this.setCity} city={this.state.city} />
 
         <WeatherDisplay data={this.state.data} />
         {/* <ErrorSnackbar errorMessage={errorStatus}/> */}
-      </div>
+      </Paper>
+    
     );
   }
 }

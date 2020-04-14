@@ -3,4 +3,4 @@ export function formatTotal(amount, currency){
       style: 'currency',
       currency,
     }).format(amount);
-  }
+  };
