@@ -17,9 +17,9 @@ const fetchRates= async (base='GBP' ) =>{
 function CurrencyConverter() {
 
 const [fromCurrency, setFromCurrency]= useState('GBP');
-const [toCurrency, setToCurrency] = useState('GBP');
-const [inputAmount, setInputAmount] = useState(null);
-const [convertedAmount, setConvertedAmount] = useState(null);
+const [toCurrency, setToCurrency] = useState('EUR');
+const [inputAmount, setInputAmount] = useState('');
+const [convertedAmount, setConvertedAmount] = useState('');
 
 const handleFromCurrencyChange = e => {
     setFromCurrency(e.target.value);
@@ -68,7 +68,7 @@ const handleFromCurrencyChange = e => {
  
 
   useEffect(() => {
-    if(inputAmount){
+    if(inputAmount !==''){
     handleInput();
   }}, [handleInput, inputAmount]);
 
@@ -114,7 +114,7 @@ heading:{
       <TextField  select 
        value={fromCurrency}
         onChange={handleFromCurrencyChange}
-        helperText="Select currency" 
+        helperText="From" 
       > 
     {Object.entries(currencies).map(([currencyCode, currencyName]) => (
     <MenuItem key={currencyCode} value={currencyCode}>
@@ -126,7 +126,7 @@ heading:{
       <TextField  select 
        value={toCurrency}
         onChange={handleToCurrencyChange}
-        helperText="Select currency" margin='normal'
+        helperText="To" margin='normal'
       >
         { Object.entries(currencies).map(([currencyCode, currencyName]) => (
     <MenuItem key={currencyCode} value={currencyCode}>
