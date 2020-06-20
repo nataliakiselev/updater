@@ -1,14 +1,14 @@
-import React from 'react';
-import CitySearch from './CitySearch';
-import WeatherDisplay from './WeatherDisplay';
-import { AppBar, Paper} from "@material-ui/core";
-// import ErrorSnackbar from './ErrorSnackbar';
+import React from "react";
+import CitySearch from "./CitySearch";
+import WeatherDisplay from "./WeatherDisplay";
+import { Paper } from "@material-ui/core";
+// import ErrorAlert from "./ErrorAlert";
 
 const hour = 60 * 60 * 1000;
 class WeatherToday extends React.Component {
   state = {
     data: null,
-    city: '',
+    city: "",
     refreshRate: hour,
   };
 
@@ -19,14 +19,14 @@ class WeatherToday extends React.Component {
   };
 
   async getWeather() {
-    console.log('getWeather called');
+    console.log("getWeather called");
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${this.state.city}&units=metric&APPID=a4f972c7cd918778eddf518d569a928e`
+        `https://api.openweathermap.org/data/2.5/weather?q=${this.state.city}&units=metric&APPID=a4f972c7cd918778eddf518d569a928e`,
       );
       if (response.status >= 200 && response.status < 300) {
         const data = await response.json();
-        console.log('weather data', data);
+        console.log("weather data", data);
         this.setState({
           data,
         });
@@ -43,14 +43,14 @@ class WeatherToday extends React.Component {
   }
 
   componentDidMount() {
-    const city = window.localStorage.getItem('city');
+    const city = window.localStorage.getItem("city");
     if (city) {
       this.setState({
         city,
       });
     } else {
       this.setState({
-        city: 'london',
+        city: "london",
       });
       this.getWeather();
     }
@@ -60,69 +60,64 @@ class WeatherToday extends React.Component {
     const { city: currentCity } = this.state;
     if (currentCity && currentCity !== prevState.city) {
       this.getWeather();
-      window.localStorage.setItem('city', currentCity);
+      window.localStorage.setItem("city", currentCity);
     }
   }
 
   render() {
-    let backgroundImage = '';
+    let backgroundImage = "";
     if (this.state.data) {
       console.log(this.state.data);
       const report = this.state.data.weather[0];
       // console.log('report', report);
       switch (report.main.toLowerCase()) {
-        case 'rain':
-          backgroundImage = '/images/rain-img.jpg';
+        case "rain":
+          backgroundImage = "/images/rain-img.jpg";
           break;
-        case 'clouds':
-          backgroundImage = '/images/cloudy-sky.jpg';
+        case "clouds":
+          backgroundImage = "/images/cloudy-sky.jpg";
           break;
-        case 'snow':
-          backgroundImage = '/images/snow.jpg';
+        case "snow":
+          backgroundImage = "/images/snow.jpg";
           break;
-        case 'clear':
-          backgroundImage = '/images/clearsku-img.jpg';
+        case "clear":
+          backgroundImage = "/images/clearsku-img.jpg";
           break;
-        case 'drizzle':
-          backgroundImage = '/images/rain-img.jpg';
+        case "drizzle":
+          backgroundImage = "/images/rain-img.jpg";
           break;
-        case 'thunderstorm':
-          backgroundImage = '/images/thunderstorm.jpg';
+        case "thunderstorm":
+          backgroundImage = "/images/thunderstorm.jpg";
           break;
-        case 'mist':
-          backgroundImage = '/images/mist.jpg';
+        case "mist":
+          backgroundImage = "/images/mist.jpg";
           break;
         default:
-          backgroundImage = '/images/clearsku-img.jpg';
+          backgroundImage = "/images/clearsku-img.jpg";
       }
     } else {
-      backgroundImage = '/images/clearsku-img.jpg';
+      backgroundImage = "/images/clearsku-img.jpg";
     }
 
     const styles = {
-      paper:{
-      background: `url(${backgroundImage}) center/cover`,
-      padding: '15px',
-    },
-
+      paper: {
+        width: "100%",
+        background: `url(${backgroundImage}) center/cover`,
+        padding: "15px",
+      },
     };
 
     // console.log('HJKHJKHJKHJKHK styles', styles);
     // console.log('this.state.data', this.state.data);
 
     return (
-   
-      
-     
-      <Paper className='css' style={styles.paper} elevation={2}>
-        
+      <Paper className="css" style={styles.paper} elevation={2}>
         <h1>{this.props.heading}</h1>
         <CitySearch sendDataToParent={this.setCity} city={this.state.city} />
 
         <WeatherDisplay data={this.state.data} />
-        {/* <ErrorSnackbar errorMessage={errorStatus}/> */}
+        {/* <ErrorAlert error={this.state.error} /> */}
       </Paper>
-    
     );
   }
 }
