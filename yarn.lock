@@ -1911,9 +1911,9 @@ acorn-walk@^6.0.1:
   integrity sha512-7evsyfH1cLOCdAzZAd43Cic04yKydNx0cF+7tiA19p1XnLLPU4dpCQOqpjqwokFe//vS0QqfqqjCS2JkiIs0cA==
 
 acorn@^5.5.3:
-  version "5.7.3"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
-  integrity sha512-T/zvzYRfbVojPWahDsE5evJdHb3oJoQfFbsrKM7w5Zcs++Tr257tia3BmMP8XYVjp1S9RZXQMh7gao96BlqZOw==
+  version "5.7.4"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.4.tgz#3e8d8a9947d0599a1796d10225d7432f4a4acf5e"
+  integrity sha512-1D++VG7BhrtvQpNbBzovKNc1FLGGEE/oGe7b9xJm/RFHMBeUaUGpluV9RLjZa47YFdPcDAenEYuq9pQPcMdLJg==
 
 acorn@^6.0.1, acorn@^6.0.4, acorn@^6.2.1:
   version "6.4.0"
@@ -8607,11 +8607,6 @@ raw-body@2.4.0:
     http-errors "1.7.2"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
-
-react-alert-template-basic@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-alert-template-basic/-/react-alert-template-basic-1.0.0.tgz#89bcf35095faf5ebdd25e1e7c300e6b4234b5ba1"
-  integrity sha512-6x5Us0oc+jj8BDNkvSWfQMESk5SdyGKitXdLb7CwIlIlecyATjCTKSWpLABg8tpKAPOSJu4Dv/fYUqxXEio/XA==
 
 react-app-polyfill@^1.0.5:
   version "1.0.5"
