@@ -2,7 +2,6 @@ import React from "react";
 import CitySearch from "./CitySearch";
 import WeatherDisplay from "./WeatherDisplay";
 import { Paper } from "@material-ui/core";
-// import ErrorAlert from "./ErrorAlert";
 
 const hour = 60 * 60 * 1000;
 class WeatherToday extends React.Component {
@@ -116,7 +115,6 @@ class WeatherToday extends React.Component {
         <CitySearch sendDataToParent={this.setCity} city={this.state.city} />
 
         <WeatherDisplay data={this.state.data} />
-        {/* <ErrorAlert error={this.state.error} /> */}
       </Paper>
     );
   }

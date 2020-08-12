@@ -1,7 +1,6 @@
-import React from 'react';
-import { List, Paper, AppBar} from "@material-ui/core";
+import React from "react";
+import { List, ListItem, ListItemText, Paper, AppBar } from "@material-ui/core";
 const hour = 60 * 60 * 1000;
-
 
 class News extends React.Component {
   constructor(props) {
@@ -14,15 +13,15 @@ class News extends React.Component {
   }
 
   async getNews() {
-    console.log('getNews called');
+    console.log("getNews called");
     try {
       const response = await fetch(
-        'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=8dee90b41a204fc99f1546b1d85b3a1a'
+        "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=8dee90b41a204fc99f1546b1d85b3a1a",
       );
       const data = await response.json();
       console.log(response);
       const articles = data.articles;
-      console.log('data', data);
+      console.log("data", data);
       this.setState({
         data: articles,
       });
@@ -36,10 +35,7 @@ class News extends React.Component {
 
   componentDidMount() {
     this.getNews();
-  };
-
-  
-  
+  }
 
   render() {
     // const list = [];
@@ -53,42 +49,44 @@ class News extends React.Component {
     // }
     const styles = {
       paper: {
-        padding: '15px',
-    },
-    image: {
-      marginRight: '15px',
-      width: "100px"
-    },
-    ul: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    header: {
-      padding: '15px'
-    }
-    }
-  
-    
+        padding: "15px",
+      },
+      image: {
+        marginRight: "15px",
+        width: "100px",
+      },
+      ul: {
+        display: "flex",
+        flexWrap: "wrap",
+      },
+      header: {
+        padding: "15px",
+      },
+    };
+
     return (
       <>
-      <AppBar position='static' style={styles.header}>
-      <h1>{this.props.heading}</h1>
-      </AppBar>
-     
-      
-      
+        <AppBar position="static" style={styles.header}>
+          <h1>{this.props.heading}</h1>
+        </AppBar>
+
         <Paper elevation={3} style={styles.paper}>
-        
-        <List >
-          {this.state.data.map((story, i) => (
-            <li  key={i}>
-              <img style={styles.image} src={story.urlToImage} alt={''}  />
-              <a  href={story.url}>{story.title} </a> by {story.author}
-            </li>
-          ))}
-        </List>
+          <List>
+            {this.state.data.map((story, i) => (
+              <ListItem key={i}>
+                <img
+                  style={styles.image}
+                  src={story.urlToImage}
+                  alt={story.title}
+                />
+                <ListItemText
+                  primary={<a href={story.url}> {story.title}</a>}
+                  secondary={`by ${story.author}`}
+                />
+              </ListItem>
+            ))}
+          </List>
         </Paper>
-      
       </>
     );
   }
