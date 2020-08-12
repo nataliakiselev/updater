@@ -1,4 +1,4 @@
-A weather, news and currency converter SPA.  Written in React, it demonstrates use of AJAX and both Classes and hooks, and AJAX with simple fetch calls. 
+A weather, news and currency converter SPA.  Written in React, it demonstrates use of both Classes and hooks and AJAX with Fetch api. 
 It allows to fetch weather for a chosen city via city search component. Material-UI used for CSS.
 
 ## Available Scripts
