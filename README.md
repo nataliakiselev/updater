@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A weather, news and currency converter SPA.  Written in React, it demonstrates use of AJAX and both Classes and hooks, and AJAX with simple fetch calls. 
+It allows to fetch weather for a chosen city via city search component. Material-UI used for CSS.
 
 ## Available Scripts
 
