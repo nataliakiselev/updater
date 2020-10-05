@@ -19,9 +19,10 @@ class WeatherToday extends React.Component {
 
   async getWeather() {
     console.log("getWeather called");
+    const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${this.state.city}&units=metric&APPID=a4f972c7cd918778eddf518d569a928e`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${this.state.city}&units=metric&APPID=${apiKey}`,
       );
       if (response.status >= 200 && response.status < 300) {
         const data = await response.json();
