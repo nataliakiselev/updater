@@ -5,7 +5,7 @@ It allows to fetch weather for a city chosen via city search component. Material
 
 ## todo:
 
-add error notification toasts
+add error notification toasts, 
 geolocation for default city
 
 ## ✨ [Demo](https://updater.netlify.app/)
