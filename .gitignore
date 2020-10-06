@@ -40,8 +40,8 @@ logs
 
 node_modules
 bower_components
-.env
 *.sublime*
+.env
 
 psd
 thumb
