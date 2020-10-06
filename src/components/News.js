@@ -1,7 +1,20 @@
 import React from "react";
 import { List, ListItem, ListItemText, Paper, AppBar } from "@material-ui/core";
-const hour = 60 * 60 * 1000;
+import "./News.css";
 
+const hour = 60 * 60 * 1000;
+const NEWS_API_HOST = "https://news67.p.rapidapi.com";
+const NEWS_ENDPOINT_PATH = "/trending";
+const NEWS_ENDPOINT = new URL(NEWS_ENDPOINT_PATH, NEWS_API_HOST);
+const news_settings = {
+  limit: "10",
+  langs: "en",
+  skip: "1",
+};
+const NEWS_URL_PARAMS = new URLSearchParams();
+for (const [key, value] of Object.entries(news_settings)) {
+  NEWS_URL_PARAMS.append(key, value);
+}
 class News extends React.Component {
   constructor(props) {
     super(props);
@@ -13,18 +26,22 @@ class News extends React.Component {
   }
 
   async getNews() {
+    const apiKey = process.env.REACT_APP_NEWS_API_KEY;
+    const NEWS_API_URL = `${NEWS_ENDPOINT}?${NEWS_URL_PARAMS.toString()}`;
     console.log("getNews called");
     try {
-      const response = await fetch(
-        "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=8dee90b41a204fc99f1546b1d85b3a1a",
-      );
+      const response = await fetch(NEWS_API_URL, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": apiKey,
+        },
+      });
 
       const data = await response.json();
-      console.log(response);
-      const articles = data.articles;
-      console.log("data", data);
+      // console.log(response);
+      // console.log("data", data);
       this.setState({
-        data: articles,
+        data: data,
       });
     } catch (err) {
       console.dir(err);
@@ -74,15 +91,11 @@ class News extends React.Component {
         <Paper elevation={3} style={styles.paper}>
           <List>
             {this.state.data.map((story, i) => (
-              <ListItem key={i}>
-                <img
-                  style={styles.image}
-                  src={story.urlToImage}
-                  alt={story.title}
-                />
+              <ListItem key={i} className="news">
+                <img style={styles.image} src={story.image} alt={story.title} />
                 <ListItemText
                   primary={<a href={story.url}> {story.title}</a>}
-                  secondary={`by ${story.author}`}
+                  secondary={`by ${story.description}`}
                 />
               </ListItem>
             ))}
