@@ -12,7 +12,7 @@ function App() {
     <div className="page">
       <Header />
       <Container>
-        <Grid className="grid" container spacing={4}>
+        <Grid className="grid" container spacing={2}>
           <Grid item sm={6} className="grid-container">
             <WeatherToday city="london" heading="Weather Today" />
           </Grid>
