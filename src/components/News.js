@@ -71,7 +71,7 @@ class News extends React.Component {
       },
       image: {
         marginRight: "15px",
-        width: "100px",
+        width: "80px",
       },
       ul: {
         display: "flex",
@@ -91,7 +91,7 @@ class News extends React.Component {
         <Paper elevation={3} style={styles.paper}>
           <List>
             {this.state.data.map((story, i) => (
-              <ListItem key={i} className="news">
+              <ListItem key={i} className="news" alignItems="flex-start">
                 <img style={styles.image} src={story.image} alt={story.title} />
                 <ListItemText
                   primary={<a href={story.url}> {story.title}</a>}

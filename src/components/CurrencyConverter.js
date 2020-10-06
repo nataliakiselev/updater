@@ -84,7 +84,7 @@ function CurrencyConverter() {
 
     intro: {
       background: "url(images/currencies.jpg) center/cover",
-      padding: "15px",
+      padding: "15px 15px 30px",
     },
     para: {
       margin: "0",
@@ -92,6 +92,7 @@ function CurrencyConverter() {
     },
     heading: {
       backgroundColor: "rgba(255, 255, 255, 0.4)",
+      marginTop: "5px",
     },
   }));
   const classes = useStyles();
